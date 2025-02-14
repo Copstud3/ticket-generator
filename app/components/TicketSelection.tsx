@@ -124,7 +124,7 @@ const TicketSelection = ({ onNext, data, onUpdate }: TicketSelectionProps) => {
       <div className="bg-[#08252B] p-6 border-2 border-[#0E464F] rounded-[32px] mt-8 flex flex-col gap-8 max-sm:bg-transparent max-sm:border-hidden max-sm:p-0">
         <div className="bg-gradient-to-br from-[#0E464F] from-10% to-[#08252B] to-80% border-2 border-[#0E464F] rounded-[40px] p-6 flex flex-col items-center justify-center">
           <p className="font-roadrage text-[62px] text-white max-sm:text-[48px]">
-            Techember Fest '25
+            Techember Fest &quot;25
           </p>
           <p className="font-roboto text-[16px] mx-[120px] text-center max-sm:mx-[30px] md:mx-[80px]">
             Join us for an unforgettable experience at [Event Name]! Secure your spot now.

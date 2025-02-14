@@ -142,9 +142,9 @@ const AttendeeDetails = ({ onNext, onPrev, data, onUpdate }: AttendeeDetailsProp
           <div>
             <ImageUpload onImageUrl={handleImageUrl} />
           </div>
-          {touched.avatarUrl && !formData.avatarUrl && (
+          {touched.avatarUrl && errors.avatarUrl && (
             <p className="text-[#24A0B5] font-semibold font-roboto text-sm mt-2 text-left">
-              Profile photo is required
+              {errors.avatarUrl}
             </p>
           )}
         </div>
@@ -155,16 +155,12 @@ const AttendeeDetails = ({ onNext, onPrev, data, onUpdate }: AttendeeDetailsProp
             type="text"
             value={formData.fullName}
             onChange={(e) => handleInputChange("fullName", e.target.value)}
-            className={`border ${
-              touched.fullName && !formData.fullName.trim()
-                ? "border-[#24A0B5]"
-                : "border-dark-mint-green"
-            } bg-[#08252b] w-full p-3 text-white focus-none outline-none mt-2 rounded-[12px]`}
+            className={`border ${touched.fullName && errors.fullName ? "border-[#24A0B5]" : "border-dark-mint-green"} bg-[#08252b] w-full p-3 text-white focus-none outline-none mt-2 rounded-[12px]`}
             required
           />
-          {touched.fullName && !formData.fullName.trim() && (
+          {touched.fullName && errors.fullName && (
             <p className="text-[#24A0B5] font-semibold font-roboto text-sm mt-2 text-left">
-              Name is required
+              {errors.fullName}
             </p>
           )}
         </div>
@@ -172,7 +168,7 @@ const AttendeeDetails = ({ onNext, onPrev, data, onUpdate }: AttendeeDetailsProp
           <p className="text-left font-roboto text-[16px]">Enter your email *</p>
           <div
             className={`flex justify-center items-center rounded-[12px] border ${
-              touched.email && (!formData.email.trim() || !validateEmail(formData.email))
+              touched.email && (errors.email || !formData.email.trim())
                 ? "border-[#24A0B5]"
                 : "border-dark-mint-green"
             } bg-[#08252b] w-full mt-2`}
@@ -187,30 +183,24 @@ const AttendeeDetails = ({ onNext, onPrev, data, onUpdate }: AttendeeDetailsProp
               required
             />
           </div>
-          {touched.email && !formData.email.trim() && (
+          {touched.email && (errors.email || !formData.email.trim()) && (
             <p className="text-[#24A0B5] font-semibold font-roboto text-sm mt-2 text-left">
-              Email is required
+              {errors.email}
             </p>
           )}
-          {touched.email && formData.email.trim() && !validateEmail(formData.email) && (
-            <p className="text-[#24A0B5] font-semibold font-roboto text-sm mt-2 text-left">
-              Please enter a valid email
-            </p>
-          )}
-          
         </div>
         <div>
-          <p className="text-left font-roboto text-[16px] ">About the project</p>
+          <p className="text-left font-roboto text-[16px]">About the project</p>
           <input
-              type="text"
-              // value={formData.about}
-              className="p-3 text-white bg-[#08252b] pb-[60px] w-full focus-none outline-none placeholder:text-gray mt-2 rounded-[12px] border border-dark-mint-green"
-              placeholder="Textarea"
-              onChange={(e) => handleInputChange("text", e.target.value)}
-              maxLength={120}
-              required
-            />
-            </div>
+            type="text"
+            value={formData.about}
+            className="p-3 text-white bg-[#08252b] pb-[60px] w-full focus-none outline-none placeholder:text-gray mt-2 rounded-[12px] border border-dark-mint-green"
+            placeholder="Textarea"
+            onChange={(e) => handleInputChange("about", e.target.value)}
+            maxLength={120}
+            required
+          />
+        </div>
         <div className="flex justify-center items-center mx-3 gap-8 max-sm:flex-col-reverse max-sm:gap-4">
           <Button text="Back" variant="default" onClick={onPrev} />
           <Button

@@ -2,7 +2,6 @@
 
 import { useState, useCallback } from "react";
 import AttendeeDetails from "./components/AttendeeDetails";
-import Navbar from "./components/Navbar";
 import TicketSelection from "./components/TicketSelection";
 import Ready from "./components/Ready";
 

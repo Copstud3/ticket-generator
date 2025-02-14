@@ -45,7 +45,7 @@ const Ready = ({ onPrev, formData }: ReadyProps) => {
         </div>
         <div className="bg-transparent border border-[#24A0B5] rounded-[16px] w-[260px] h-[446px] mx-auto relative -top-[580px]"></div>
         <p className="font-roadrage text-[62px] text-white max-sm:text-[45px] relative  -top-[1000px] xl:mx-3 xl:leading-[40px] xl:text-[34px]">
-          Techember Fest "25
+          Techember Fest &quot;25
         </p>
         <p className="relative -left-[4px] -top-[1000px] font-roboto text-[15px]">
           📍 04 Rumens road, Ikoyi, Lagos

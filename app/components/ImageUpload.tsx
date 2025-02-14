@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 import uploadIcon from "@/public/images/uploadicon.png";
@@ -21,24 +21,27 @@ const ImageUpload = ({ onImageUrl, maxSizeInMB = 5, required = true }: ImageUplo
   const [previewUrl, setPreviewUrl] = useState('');
   const [error, setError] = useState<UploadError | null>(null);
 
-  const validateFile = (file: File): UploadError | null => {
-    if (file.size > maxSizeInMB * 1024 * 1024) {
-      return {
-        type: 'size',
-        message: `File size should be less than ${maxSizeInMB}MB`
-      };
-    }
+  // Memoize the validateFile function so it's stable and doesn't cause unnecessary re-renders
+  const validateFile = useMemo(() => {
+    return (file: File): UploadError | null => {
+      if (file.size > maxSizeInMB * 1024 * 1024) {
+        return {
+          type: 'size',
+          message: `File size should be less than ${maxSizeInMB}MB`
+        };
+      }
 
-    const validFormats = ['image/jpeg', 'image/png', 'image/jpg'];
-    if (!validFormats.includes(file.type)) {
-      return {
-        type: 'format',
-        message: 'Please upload a JPEG, JPG, or PNG file'
-      };
-    }
+      const validFormats = ['image/jpeg', 'image/png', 'image/jpg'];
+      if (!validFormats.includes(file.type)) {
+        return {
+          type: 'format',
+          message: 'Please upload a JPEG, JPG, or PNG file'
+        };
+      }
 
-    return null;
-  };
+      return null;
+    };
+  }, [maxSizeInMB]);
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (acceptedFiles.length === 0) return;
@@ -88,7 +91,7 @@ const ImageUpload = ({ onImageUrl, maxSizeInMB = 5, required = true }: ImageUplo
     } finally {
       setUploading(false);
     }
-  }, [onImageUrl, maxSizeInMB]);
+  }, [onImageUrl, validateFile]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -127,7 +130,7 @@ const ImageUpload = ({ onImageUrl, maxSizeInMB = 5, required = true }: ImageUplo
 
         {previewUrl ? (
           <div className="relative w-[240px] h-[240px]">
-            <img
+            <Image
               src={previewUrl}
               alt="Preview"
               width={240}
@@ -144,7 +147,7 @@ const ImageUpload = ({ onImageUrl, maxSizeInMB = 5, required = true }: ImageUplo
           </div>
         ) : (
           <div className='flex flex-col items-center gap-4 p-12 mx-32 bg-[#0e464f] rounded-[32px] max-sm:px-6 max-sm:mx-3 md:px-10 md:mx-4 xl:py-16 xl:mx-32'>
-            <Image src={uploadIcon} alt='upload' />
+            <Image src={uploadIcon} alt='upload' width={50} height={50} />
             <p className="text-center text-white font-roboto">
               {uploading 
                 ? 'Uploading...' 

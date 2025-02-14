@@ -8,7 +8,7 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ text, variant = "default", onClick, disabled, className = "" }) => {
+const Button: React.FC<ButtonProps> = ({ text, variant = "default", onClick, className = "" }) => {
   const baseStyles = "border-2 w-full py-3 font-jeju rounded-[8px] max-sm:w-full";
   const variants = {
     default: "border-mint-green text-[#24A0B5] -mx-3 ",
