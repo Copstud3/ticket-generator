@@ -56,9 +56,8 @@ export default function Page() {
       {step === 1 && (
         <TicketSelection
           onNext={nextStep}
-          data={formData.ticket || { type: '', quantity: '' }}  // Provide default values
+          data={formData.ticket || { type: '', quantity: '' }}  
           onUpdate={(data) => {
-            // Pass the correct structure for the ticket data
             handleFormUpdate("ticket", { type: data.ticketType, quantity: data.quantity });
           }}
         />
@@ -67,8 +66,8 @@ export default function Page() {
         <AttendeeDetails
           onNext={nextStep}
           onPrev={prevStep}
-          data={formData.attendee || { fullName: '', email: '', avatarUrl: '', about: '' }}  // Provide default values
-          onUpdate={(data) => handleFormUpdate("attendee", data)}  // Pass the correct structure for attendee data
+          data={formData.attendee || { fullName: '', email: '', avatarUrl: '', about: '' }} 
+          onUpdate={(data) => handleFormUpdate("attendee", data)}  
         />
       )}
       {step === 3 && (

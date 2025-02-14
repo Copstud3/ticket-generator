@@ -8,7 +8,7 @@ import barCode from "@/public/images/Bar Code.png";
 interface ReadyProps {
   onPrev: () => void;
   formData: {
-    ticket?: {
+    data?: {
       type: string;
       quantity: string;
     };
@@ -22,7 +22,7 @@ interface ReadyProps {
 }
 
 const Ready = ({ onPrev, formData }: ReadyProps) => {
-  const { ticket, attendee } = formData;
+  const { data, attendee } = formData;
 
   return (
     <section className="text-center mt-12 p-12 border-2 mx-[500px] border-dark-mint-green rounded-[40px] bg-[#041E23] max-sm:p-6 max-sm:w-[350px] max-sm:mx-auto  md:w-[600px] md:mx-auto md:h-[1100px] max-sm:h-[1100px]">
@@ -56,12 +56,12 @@ const Ready = ({ onPrev, formData }: ReadyProps) => {
 
         {/* User Avatar Image */}
         {attendee?.avatarUrl && (
-          <div className="relative  -top-[990px] -mb-[120px] flex justify-center">
+          <div className="relative max-sm:w-[100px] max-sm:h-[100px] max-sm:mx-auto -top-[990px] -mb-[120px] flex justify-center">
             <Image
               src={attendee.avatarUrl}
               alt="Profile"
-              width={100}
-              height={100}
+              width={120}
+              height={120}
               className="rounded-lg object-cover"
             />
           </div>
@@ -94,7 +94,7 @@ const Ready = ({ onPrev, formData }: ReadyProps) => {
                 Ticket Type
               </p>
               <p className="text-left text-[12px] text-white font-roboto">
-                {ticket?.type || "N/A"}
+                {data?.type || "N/A"}
               </p>
             </div>
             <div>
@@ -102,7 +102,7 @@ const Ready = ({ onPrev, formData }: ReadyProps) => {
                 Ticket for
               </p>
               <p className="text-left text-[12px] text-white -ml-5 font-roboto">
-                {ticket?.quantity || "0"}
+                {data?.quantity || "0"}
               </p>
             </div>
           </div>
@@ -117,7 +117,7 @@ const Ready = ({ onPrev, formData }: ReadyProps) => {
         <Image
           src={barCode}
           alt="bar code"
-          className="mx-auto relative md:-top-[780px] max-sm:-top-[810px]"
+          className="mx-auto relative md:-top-[780px] max-sm:-top-[790px]"
         />
       </div>
       <div className="flex justify-center items-center gap-8 max-sm:flex-col-reverse max-sm:gap-4 w-full relative md:-top-[250px] max-sm:-top-[750px]">
