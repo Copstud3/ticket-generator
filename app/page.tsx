@@ -7,7 +7,7 @@ import Ready from "./components/Ready";
 
 interface FormData {
   ticket?: {
-    ticketType: string;
+    type: string;
     quantity: string;
   };
   attendee?: {
@@ -18,47 +18,35 @@ interface FormData {
   };
 }
 
-type UpdateData = {
-  ticket: {
-    ticketType: string;
-    quantity: string;
-  };
-  attendee: {
-    fullName: string;
-    email: string;
-    avatarUrl: string;
-    about?: string;
-  };
-};
-
 export default function Page() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({});
 
-  const handleFormUpdate = useCallback(
-    (section: keyof FormData, data: UpdateData[keyof FormData]) => {
-      setFormData((prev) => {
-        // Only update if data has actually changed
-        if (JSON.stringify(prev[section]) === JSON.stringify(data)) {
-          return prev;
-        }
-        return {
-          ...prev,
-          [section]: data,
-        };
-      });
-    },
-    []
-  );
+  // Handle form updates with correct structure for ticket or attendee
+  const handleFormUpdate = useCallback((section: keyof FormData, data: FormData[keyof FormData]) => {
+    setFormData(prev => {
+      // Only update if data has actually changed
+      if (JSON.stringify(prev[section]) === JSON.stringify(data)) {
+        return prev;
+      }
+      return {
+        ...prev,
+        [section]: data
+      };
+    });
+  }, []);
 
+  // Handle next step
   const nextStep = useCallback(() => {
-    setStep((prev) => prev + 1);
+    setStep(prev => prev + 1);
   }, []);
 
+  // Handle previous step
   const prevStep = useCallback(() => {
-    setStep((prev) => prev - 1);
+    setStep(prev => prev - 1);
   }, []);
 
+  // Go back to the first step
   const firstStep = useCallback(() => {
     setStep(1);
   }, []);
@@ -68,9 +56,10 @@ export default function Page() {
       {step === 1 && (
         <TicketSelection
           onNext={nextStep}
-          data={formData.ticket}
+          data={formData.ticket || { type: '', quantity: '' }}  // Provide default values
           onUpdate={(data) => {
-            handleFormUpdate("ticket", data);
+            // Pass the correct structure for the ticket data
+            handleFormUpdate("ticket", { type: data.ticketType, quantity: data.quantity });
           }}
         />
       )}
@@ -78,11 +67,16 @@ export default function Page() {
         <AttendeeDetails
           onNext={nextStep}
           onPrev={prevStep}
-          data={formData.attendee}
-          onUpdate={(data) => handleFormUpdate("attendee", data)}
+          data={formData.attendee || { fullName: '', email: '', avatarUrl: '', about: '' }}  // Provide default values
+          onUpdate={(data) => handleFormUpdate("attendee", data)}  // Pass the correct structure for attendee data
         />
       )}
-      {step === 3 && <Ready onPrev={firstStep} formData={formData} />}
+      {step === 3 && (
+        <Ready
+          onPrev={firstStep}
+          formData={formData}
+        />
+      )}
     </main>
   );
 }

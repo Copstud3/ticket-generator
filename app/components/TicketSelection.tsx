@@ -23,7 +23,7 @@ interface TicketSelectionProps {
 
 const EXPIRATION_TIME = 5 * 60 * 1000; // 5 minutes
 
-const TicketSelection = ({ onNext, data, onUpdate }: TicketSelectionProps) => {
+const TicketSelection = ({ onNext, data = { ticketType: '', quantity: '' }, onUpdate }: TicketSelectionProps) => {
   const [selected, setSelected] = useState<string | null>(data?.ticketType || null);
   const [quantity, setQuantity] = useState<string>(data?.quantity || "");
   const [error, setError] = useState<string>("");
