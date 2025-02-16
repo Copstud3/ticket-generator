@@ -10,7 +10,7 @@ interface ReadyProps {
   formData: {
     data?: {
       type: string;
-      quantity: string;
+      quantity: number;
     };
     attendee?: {
       fullName: string;
@@ -56,7 +56,7 @@ const Ready = ({ onPrev, formData }: ReadyProps) => {
 
         {/* User Avatar Image */}
         {attendee?.avatarUrl && (
-          <div className="relative max-sm:w-[100px] max-sm:h-[100px] max-sm:mx-auto -top-[990px] -mb-[120px] flex justify-center">
+          <div className="relative mx-auto border-[5px] border-mint-green rounded-lg h-[120px] w-[120px] max-sm:w-[100px] max-sm:h-[100px] max-sm:mx-auto -top-[990px] -mb-[120px] flex justify-center">
             <Image
               src={attendee.avatarUrl}
               alt="Profile"
@@ -102,7 +102,7 @@ const Ready = ({ onPrev, formData }: ReadyProps) => {
                 Ticket for
               </p>
               <p className="text-left text-[12px] text-white -ml-5 font-roboto">
-                {data?.quantity || "0"}
+                {data?.quantity || 0 }
               </p>
             </div>
           </div>

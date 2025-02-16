@@ -135,7 +135,7 @@ const ImageUpload = ({ onImageUrl, maxSizeInMB = 5, required = true }: ImageUplo
               alt="Preview"
               width={240}
               height={240}
-              className="w-full h-full object-cover rounded-lg"
+              className="w-[240px] h-[240px] object-cover rounded-lg "
             />
             <button
               onClick={removeImage}
