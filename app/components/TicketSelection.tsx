@@ -164,10 +164,10 @@ const TicketSelection = ({ onNext, data = { ticketType: '', quantity: '' }, onUp
           <p className="text-left font-roboto text-[16px]">Number of tickets</p>
           <select
             className="border-2 border-dark-mint-green bg-[#07373F] w-full p-3 text-white focus-none outline-none mt-2 rounded-[12px]"
-            value={data.quantity}
+            value={data?.quantity}
             onChange={(e) => handleQuantityChange(e.target.value)}
-            aria-label="Select number of tickets"
-          >
+            aria-label="Select number of tickets">
+          
             <option value="">0</option>
             <option value="1">1</option>
             <option value="2">2</option>

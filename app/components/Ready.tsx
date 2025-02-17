@@ -102,7 +102,7 @@ const Ready = ({ onPrev, formData }: ReadyProps) => {
                 Ticket for
               </p>
               <p className="text-left text-[12px] text-white -ml-5 font-roboto">
-                {data?.quantity || 0 }
+                {data?.quantity || "0" }
               </p>
             </div>
           </div>
