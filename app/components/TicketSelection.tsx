@@ -25,7 +25,7 @@ const EXPIRATION_TIME = 5 * 60 * 1000; // 5 minutes
 
 const TicketSelection = ({ onNext, data = { ticketType: '', quantity: '' }, onUpdate }: TicketSelectionProps) => {
   const [selected, setSelected] = useState<string | null>(data?.ticketType || null);
-  const [quantity, setQuantity] = useState<string>(data?.quantity || "");
+  const [quantity, setQuantity] = useState<string>(data?.quantity || "0");
   const [error, setError] = useState<string>("");
   const isInitialMount = useRef(true);
 
@@ -49,10 +49,10 @@ const TicketSelection = ({ onNext, data = { ticketType: '', quantity: '' }, onUp
           if (now - parsed.timestamp > EXPIRATION_TIME) {
             localStorage.removeItem("ticketSelection");
             setSelected(null);
-            setQuantity("");
+            setQuantity("0");
           } else {
             setSelected(parsed.ticketType || null);
-            setQuantity(parsed.quantity || "");
+            setQuantity(parsed.quantity || "0");
           }
         } catch {
           console.error("Error parsing ticketSelection from localStorage");
@@ -112,6 +112,7 @@ const TicketSelection = ({ onNext, data = { ticketType: '', quantity: '' }, onUp
     setError("");
     onNext();
   };
+
   return (
     <section className="text-center mt-12 p-12 border-2 mx-[500px] border-dark-mint-green rounded-[40px] mb-12 bg-[#041E23] max-sm:p-6 max-sm:w-[350px] max-sm:mx-auto md:w-[600px] md:mx-auto xl:w-[700px]">
       <div className="flex flex-col gap-3">
@@ -164,11 +165,11 @@ const TicketSelection = ({ onNext, data = { ticketType: '', quantity: '' }, onUp
           <p className="text-left font-roboto text-[16px]">Number of tickets</p>
           <select
             className="border-2 border-dark-mint-green bg-[#07373F] w-full p-3 text-white focus-none outline-none mt-2 rounded-[12px]"
-            value={data?.quantity}
+            value={quantity}
             onChange={(e) => handleQuantityChange(e.target.value)}
-            aria-label="Select number of tickets">
-          
-            <option value="">0</option>
+            aria-label="Select number of tickets"
+          >
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>

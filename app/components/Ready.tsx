@@ -8,9 +8,9 @@ import barCode from "@/public/images/Bar Code.png";
 interface ReadyProps {
   onPrev: () => void;
   formData: {
-    data?: {
+    data: {
       type: string;
-      quantity: number;
+      quantity: string;  // Changed from number to string
     };
     attendee?: {
       fullName: string;
@@ -102,7 +102,7 @@ const Ready = ({ onPrev, formData }: ReadyProps) => {
                 Ticket for
               </p>
               <p className="text-left text-[12px] text-white -ml-5 font-roboto">
-                {data?.quantity || "0" }
+                {data?.quantity || "0"}
               </p>
             </div>
           </div>

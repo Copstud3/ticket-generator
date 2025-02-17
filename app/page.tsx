@@ -22,10 +22,8 @@ export default function Page() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({});
 
-  // Handle form updates with correct structure for ticket or attendee
   const handleFormUpdate = useCallback((section: keyof FormData, data: FormData[keyof FormData]) => {
     setFormData(prev => {
-      // Only update if data has actually changed
       if (JSON.stringify(prev[section]) === JSON.stringify(data)) {
         return prev;
       }
@@ -36,20 +34,28 @@ export default function Page() {
     });
   }, []);
 
-  // Handle next step
   const nextStep = useCallback(() => {
     setStep(prev => prev + 1);
   }, []);
 
-  // Handle previous step
   const prevStep = useCallback(() => {
     setStep(prev => prev - 1);
   }, []);
 
-  // Go back to the first step
   const firstStep = useCallback(() => {
     setStep(1);
   }, []);
+
+  // Transform data for Ready component
+  const getReadyFormData = () => {
+    return {
+      data: {
+        type: formData.ticket?.type || "",
+        quantity: formData.ticket?.quantity || "0"
+      },
+      attendee: formData.attendee
+    };
+  };
 
   return (
     <main>
@@ -73,7 +79,7 @@ export default function Page() {
       {step === 3 && (
         <Ready
           onPrev={firstStep}
-          formData={formData}
+          formData={getReadyFormData()}
         />
       )}
     </main>
